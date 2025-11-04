@@ -4,12 +4,14 @@ const connectDB = require("./config/db");
 const itemsRoutes = require("./routes/items");
 const errorHandler = require("./middlewares/errorHandler");
 const userRoutes =require('./routes/user')
+const imageRoutes = require("./routes/items")
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 app.use(express.json());
 app.use("/api/items", itemsRoutes);
 app.use('/api/user' ,userRoutes)
+app.use("/api/image",imageRoutes);
 app.get("/", (res) => res.send("Server is up"));
 app.use(errorHandler);
 
