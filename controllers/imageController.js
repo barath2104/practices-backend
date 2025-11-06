@@ -1,4 +1,4 @@
-const Item = require("../models/image");
+const ImageUpload = require("../models/image");
 const cloudinary = require("../config/cloudinary");
 
 // CREATE
@@ -11,7 +11,7 @@ exports.createItem = async (req, res) => {
       folder: "uploads",
     });
 
-    const newItem = await Item.create({
+    const newItem = await ImageUpload.create({
       name,
       imageUrl: result.secure_url,
       imagePublicId: result.public_id,
@@ -25,7 +25,7 @@ exports.createItem = async (req, res) => {
 
 // READ
 exports.getItems = async (req, res) => {
-  const items = await Item.find();
+  const items = await ImageUpload.find();
   res.json(items);
 };
 
@@ -36,7 +36,7 @@ exports.updateItem = async (req, res) => {
     const { name } = req.body;
     const file = req.file;
 
-    const item = await Item.findById(id);
+    const item = await ImageUpload.findById(id);
     if (!item) return res.status(404).json({ message: "Not found" });
 
     // If a new image is uploaded, replace the old one
@@ -60,7 +60,7 @@ exports.updateItem = async (req, res) => {
 exports.deleteItem = async (req, res) => {
   try {
     const { id } = req.params;
-    const item = await Item.findById(id);
+    const item = await ImageUpload.findById(id);
     if (!item) return res.status(404).json({ message: "Not found" });
 
     await cloudinary.uploader.destroy(item.imagePublicId);

@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 
-const itemSchema = new mongoose.Schema({
+const imageSchema = new mongoose.Schema({
   name: { type: String, required: true },
   imageUrl: { type: String , required: true },
   imagePublicId: { type: String }, // useful for deleting
 });
 
-module.exports = mongoose.model("Item", itemSchema);
+module.exports = mongoose.model("ImageUpload", imageSchema);
